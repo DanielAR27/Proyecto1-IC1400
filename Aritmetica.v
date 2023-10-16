@@ -5,10 +5,10 @@ module TestBench;
     wire C;
     Aritmetico A1(A, B, f0, f1, S, C);
     initial begin
-        f1 = 1'b1;
+        f1 = 1'b0;
         f0 = 1'b0;
         A = 30;
-        B = 7;
+        B = 16;
         #1000
         $display("---------------------");
         $display("SUM: %b", S);
@@ -33,48 +33,50 @@ module Aritmetico(A, B, f0, f1, S, C);
     Adder32 A1(mux_b, mux_a, or_code, S, C);
 endmodule
 
-module Inversor_32(A, c_out);
-    input [31:0] A;
-    output [31:0] c_out;
+module Inversor_32(entry, out);
+    input [31:0] entry;
+    output [31:0] out;
 
-    Inversor N00(A[0], c_out[0]);
-    Inversor N01(A[1], c_out[1]);
-    Inversor N02(A[2], c_out[2]);
-    Inversor N03(A[3], c_out[3]);
-    Inversor N04(A[4], c_out[4]);
-    Inversor N05(A[5], c_out[5]);
-    Inversor N06(A[6], c_out[6]);
-    Inversor N07(A[7], c_out[7]);
-    Inversor N08(A[8], c_out[8]);
-    Inversor N09(A[9], c_out[9]);
-    Inversor N10(A[10], c_out[10]);
-    Inversor N11(A[11], c_out[11]);
-    Inversor N12(A[12], c_out[12]);
-    Inversor N13(A[13], c_out[13]);
-    Inversor N14(A[14], c_out[14]);
-    Inversor N15(A[15], c_out[15]);
-    Inversor N16(A[16], c_out[16]);
-    Inversor N17(A[17], c_out[17]);
-    Inversor N18(A[18], c_out[18]);
-    Inversor N19(A[19], c_out[19]);
-    Inversor N20(A[20], c_out[20]);
-    Inversor N21(A[21], c_out[21]);
-    Inversor N22(A[22], c_out[22]);
-    Inversor N23(A[23], c_out[23]);
-    Inversor N24(A[24], c_out[24]);
-    Inversor N25(A[25], c_out[25]);
-    Inversor N26(A[26], c_out[26]);
-    Inversor N27(A[27], c_out[27]);
-    Inversor N28(A[28], c_out[28]);
-    Inversor N29(A[29], c_out[29]);
-    Inversor N30(A[30], c_out[30]);
-    Inversor N31(A[31], c_out[31]);
+    Inversor N00(entry[0], out[0]);
+    Inversor N01(entry[1], out[1]);
+    Inversor N02(entry[2], out[2]);
+    Inversor N03(entry[3], out[3]);
+    Inversor N04(entry[4], out[4]);
+    Inversor N05(entry[5], out[5]);
+    Inversor N06(entry[6], out[6]);
+    Inversor N07(entry[7], out[7]);
+    Inversor N08(entry[8], out[8]);
+    Inversor N09(entry[9], out[9]);
+    Inversor N10(entry[10], out[10]);
+    Inversor N11(entry[11], out[11]);
+    Inversor N12(entry[12], out[12]);
+    Inversor N13(entry[13], out[13]);
+    Inversor N14(entry[14], out[14]);
+    Inversor N15(entry[15], out[15]);
+    Inversor N16(entry[16], out[16]);
+    Inversor N17(entry[17], out[17]);
+    Inversor N18(entry[18], out[18]);
+    Inversor N19(entry[19], out[19]);
+    Inversor N20(entry[20], out[20]);
+    Inversor N21(entry[21], out[21]);
+    Inversor N22(entry[22], out[22]);
+    Inversor N23(entry[23], out[23]);
+    Inversor N24(entry[24], out[24]);
+    Inversor N25(entry[25], out[25]);
+    Inversor N26(entry[26], out[26]);
+    Inversor N27(entry[27], out[27]);
+    Inversor N28(entry[28], out[28]);
+    Inversor N29(entry[29], out[29]);
+    Inversor N30(entry[30], out[30]);
+    Inversor N31(entry[31], out[31]);
 endmodule
 
-module Inversor(A, c_out);
+module Inversor(A, out);
     input A;
-    output c_out;
-    xor g1(c_out, 1'b1, A);
+    output out;
+    //--------------------
+    // Inversor hecho con "XOR".
+    xor g1(out, 1'b1, A);
 endmodule
 
 //Sumador de 32 bits para proyecto TECic
