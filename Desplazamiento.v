@@ -1,16 +1,33 @@
 module TestBench;
     reg [4:0] seleccion;
     reg [31:0] entrada;
+    reg f0, f1;
     wire [31:0] salida;
-    ROR_32 S00(seleccion, entrada, salida);
+    Desplazamiento D00(entrada, seleccion, f0, f1, salida);
     initial begin
-        seleccion = 5'b00010;
-        entrada = 32'b01000000000000000000000000000001;
+        seleccion = 5'b00001;
+        f0 = 1;
+        f1 = 1;
+        entrada = 32'b01111111111111111111111111111111;
         #10000
         $display("entrada: %b", entrada);
         #10000
         $display("RESULTADO: %b", salida);
     end
+endmodule
+
+module Desplazamiento(num, select, f0, f1, Out);
+    input [31:0] num;
+    input [4:0] select;
+    input f0,f1;
+    wire [31:0] shl_code, slr_code, sar_code, ror_code;
+    output [31:0] Out;
+    //--------------------------------------
+    SHL_32 SHL00(select, num, shl_code);
+    SLR_32 SLR00(select, num, slr_code);
+    SAR_32 SAR00(select, num, sar_code);
+    ROR_32 ROR00(select, num, ror_code);
+    MUX4x1_32 M0(f0, f1, shl_code, slr_code, sar_code, ror_code, Out);
 endmodule
 
 module SLR_32(select, entry, out);
@@ -370,4 +387,58 @@ module MUX2X1(S, I0, I1, Out);
     not #(2) g2(c3, S);
     and #(2) g3(c2, I0, c3);
     or #(2) g4(Out, c1, c2);
+endmodule
+
+module MUX4x1_32(S0, S1, I0, I1, I2, I3, Out);
+    input [31:0] I0, I1, I2, I3;
+    input S0, S1;
+    output [31:0] Out;
+
+    MUX4x1 M00(S0, S1, I0[0], I1[0], I2[0], I3[0], Out[0]);
+    MUX4x1 M01(S0, S1, I0[1], I1[1], I2[1], I3[1], Out[1]);
+    MUX4x1 M02(S0, S1, I0[2], I1[2], I2[2], I3[2], Out[2]);
+    MUX4x1 M03(S0, S1, I0[3], I1[3], I2[3], I3[3], Out[3]);
+    MUX4x1 M04(S0, S1, I0[4], I1[4], I2[4], I3[4], Out[4]);
+    MUX4x1 M05(S0, S1, I0[5], I1[5], I2[5], I3[5], Out[5]);
+    MUX4x1 M06(S0, S1, I0[6], I1[6], I2[6], I3[6], Out[6]);
+    MUX4x1 M07(S0, S1, I0[7], I1[7], I2[7], I3[7], Out[7]);
+    MUX4x1 M08(S0, S1, I0[8], I1[8], I2[8], I3[8], Out[8]);
+    MUX4x1 M09(S0, S1, I0[9], I1[9], I2[9], I3[9], Out[9]);
+    MUX4x1 M10(S0, S1, I0[10], I1[10], I2[10], I3[10], Out[10]);
+    MUX4x1 M11(S0, S1, I0[11], I1[11], I2[11], I3[11], Out[11]);
+    MUX4x1 M12(S0, S1, I0[12], I1[12], I2[12], I3[12], Out[12]);
+    MUX4x1 M13(S0, S1, I0[13], I1[13], I2[13], I3[13], Out[13]);
+    MUX4x1 M14(S0, S1, I0[14], I1[14], I2[14], I3[14], Out[14]);
+    MUX4x1 M15(S0, S1, I0[15], I1[15], I2[15], I3[15], Out[15]);
+    MUX4x1 M16(S0, S1, I0[16], I1[16], I2[16], I3[16], Out[16]);
+    MUX4x1 M17(S0, S1, I0[17], I1[17], I2[17], I3[17], Out[17]);
+    MUX4x1 M18(S0, S1, I0[18], I1[18], I2[18], I3[18], Out[18]);
+    MUX4x1 M19(S0, S1, I0[19], I1[19], I2[19], I3[19], Out[19]);
+    MUX4x1 M20(S0, S1, I0[20], I1[20], I2[20], I3[20], Out[20]);
+    MUX4x1 M21(S0, S1, I0[21], I1[21], I2[21], I3[21], Out[21]);
+    MUX4x1 M22(S0, S1, I0[22], I1[22], I2[22], I3[22], Out[22]);
+    MUX4x1 M23(S0, S1, I0[23], I1[23], I2[23], I3[23], Out[23]);
+    MUX4x1 M24(S0, S1, I0[24], I1[24], I2[24], I3[24], Out[24]);
+    MUX4x1 M25(S0, S1, I0[25], I1[25], I2[25], I3[25], Out[25]);
+    MUX4x1 M26(S0, S1, I0[26], I1[26], I2[26], I3[26], Out[26]);
+    MUX4x1 M27(S0, S1, I0[27], I1[27], I2[27], I3[27], Out[27]);
+    MUX4x1 M28(S0, S1, I0[28], I1[28], I2[28], I3[28], Out[28]);
+    MUX4x1 M29(S0, S1, I0[29], I1[29], I2[29], I3[29], Out[29]);
+    MUX4x1 M30(S0, S1, I0[30], I1[30], I2[30], I3[30], Out[30]);
+    MUX4x1 M31(S0, S1, I0[31], I1[31], I2[31], I3[31], Out[31]);
+endmodule
+
+module MUX4x1(S0, S1, I0, I1, I2, I3, Out);
+    input I0,  I1, I2, I3, S0, S1;
+    output Out;
+    wire c1, c2, c3, c4, c5, c6;
+    //--------------------------------
+    not #(2) g1(c1, S0);
+    not #(2) g2 (c2, S1);
+    // AND de 3 variables
+    and #(2) g3 (c3, I0, c1, c2);
+    and #(2) g4 (c4, I1, c1, S1);
+    and #(2) g5 (c5, I2, S0, c2);
+    and #(2) g6 (c6, I3, S0, S1);
+    or #(2) g7 (Out, c3, c4, c5, c6);
 endmodule
