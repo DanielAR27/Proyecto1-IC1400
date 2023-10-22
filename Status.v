@@ -15,10 +15,10 @@ module OtherStatus(result, out);
     input [31:0] result;
     output [3:0] out;
     //----------------------------------
-    xor #(3) g1(out[1], 1'b0, 1'b0);
+    or #(2) g1(out[3], 1'b0, 1'b0);
     ZeroStatus Z00(result, out[2]);
-    xor #(3) g2(out[1], 1'b0, result[31]);
-    xor #(3) g3(out[0], 1'b0, 1'b0);
+    or #(2) g2(out[1], 1'b0, result[31]);
+    or #(2) g3(out[0], 1'b0, 1'b0);
 endmodule
 
 module ArithmeticStatus(last_bit1, last_bit2, result, c_out, out);
